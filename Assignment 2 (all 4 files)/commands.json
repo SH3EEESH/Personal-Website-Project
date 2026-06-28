@@ -2,7 +2,7 @@
   {
     "id": 1,
     "tier": "Linux",
-    "title": "Directory Navigation",
+    "title": "> Directory Navigation",
     "description": "The SOC has detected a suspicious script. Change your current directory to the system logs folder at '/var/log' to investigate.",
     "expected_command": "cd /var/log",
     "hint": "Use the command to Change Directory followed by the absolute path."
@@ -10,7 +10,7 @@
   {
     "id": 2,
     "tier": "Linux",
-    "title": "List Hidden Files",
+    "title": "> List Hidden Files",
     "description": "Malware often hides in hidden files. List all files in your current directory, including hidden ones.",
     "expected_command": "ls -a",
     "hint": "Use the list command with the '-a' flag to show everything."
@@ -18,7 +18,7 @@
   {
     "id": 3,
     "tier": "Linux",
-    "title": "Read User Accounts",
+    "title": "> Read User Accounts",
     "description": "Review the local user accounts file to check for unauthorized backdoor access.",
     "expected_command": "cat /etc/passwd",
     "hint": "Use the 'cat' command to output the contents of the passwd file in the /etc directory."
@@ -26,7 +26,7 @@
   {
     "id": 4,
     "tier": "Linux",
-    "title": "Search Log for Errors",
+    "title": "> Search Log for Errors",
     "description": "Find all failed SSH login attempts within the authentication log.",
     "expected_command": "grep \"Failed password\" /var/log/auth.log",
     "hint": "Use 'grep' to search for the specific string inside the auth.log file."
@@ -34,129 +34,161 @@
   {
     "id": 5,
     "tier": "Linux",
-    "title": "Check Active Processes",
+    "title": "> Check Active Processes",
     "description": "Display a real-time, interactive view of running processes to identify resource-heavy cryptominers.",
     "expected_command": "top",
     "hint": "This three-letter command shows the 'top' resource-consuming processes."
   },
   {
     "id": 6,
+    "tier": "Linux",
+    "title": "> Check Disk Space",
+    "description": "A server is acting sluggish. Check the disk space usage in human-readable format to see if the drive is full.",
+    "expected_command": "df -h",
+    "hint": "Use the 'disk free' command with the human-readable flag."
+  },
+  {
+    "id": 7,
     "tier": "PowerShell",
-    "title": "List Running Processes",
+    "title": "> List Running Processes",
     "description": "A malicious payload might be executing. Display a list of all currently running processes on the Windows machine.",
     "expected_command": "Get-Process",
     "hint": "Use the standard PowerShell cmdlet for retrieving processes."
   },
   {
-    "id": 7,
+    "id": 8,
     "tier": "PowerShell",
-    "title": "Check Stopped Services",
+    "title": "> Check Stopped Services",
     "description": "Ransomware often disables antivirus services. Retrieve the status of all services on the machine.",
     "expected_command": "Get-Service",
     "hint": "Use the standard cmdlet that 'Gets' the 'Service' list."
   },
   {
-    "id": 8,
+    "id": 9,
     "tier": "PowerShell",
-    "title": "Read Event Logs",
+    "title": "> Read Event Logs",
     "description": "Pull the latest 5 System event logs to investigate a recent workstation crash.",
     "expected_command": "Get-EventLog -LogName System -Newest 5",
     "hint": "Use Get-EventLog, specify the System log, and use the -Newest flag."
   },
   {
-    "id": 9,
+    "id": 10,
     "tier": "PowerShell",
-    "title": "Local Users Check",
+    "title": "> Local Users Check",
     "description": "List all local users on the Windows machine to ensure no unauthorized administrative accounts were created.",
     "expected_command": "Get-LocalUser",
     "hint": "Use the cmdlet that retrieves local user account information."
   },
   {
-    "id": 10,
+    "id": 11,
     "tier": "PowerShell",
-    "title": "Network Connections",
+    "title": "> Network Connections",
     "description": "Identify active TCP network connections directly via PowerShell to spot data exfiltration.",
     "expected_command": "Get-NetTCPConnection",
     "hint": "Use the cmdlet designed to get current TCP connections."
   },
   {
-    "id": 11,
+    "id": 12,
+    "tier": "PowerShell",
+    "title": "> Check Execution Policy",
+    "description": "A new security script won't run. Check the current execution policy to see if scripts are restricted on this machine.",
+    "expected_command": "Get-ExecutionPolicy",
+    "hint": "Use the cmdlet that 'Gets' the 'ExecutionPolicy'."
+  },
+  {
+    "id": 13,
     "tier": "Networking",
-    "title": "Check Network Interfaces",
+    "title": "> Check Network Interfaces",
     "description": "Your machine lost connection to the domain controller. Display all active network interfaces.",
     "expected_command": "ip a",
     "hint": "On newer Linux systems, this two-letter abbreviation for 'ip address' is standard."
   },
   {
-    "id": 12,
+    "id": 14,
     "tier": "Networking",
-    "title": "Test Connectivity",
+    "title": "> Test Connectivity",
     "description": "Verify if the external DNS server at 8.8.8.8 is reachable from your current workstation.",
     "expected_command": "ping 8.8.8.8",
     "hint": "Use the command that sends ICMP echo requests to the target IP."
   },
   {
-    "id": 13,
+    "id": 15,
     "tier": "Networking",
-    "title": "Active Port Scan",
+    "title": "> Active Port Scan",
     "description": "List all active listening ports and established connections to spot C2 beaconing.",
     "expected_command": "netstat -ano",
     "hint": "Use netstat with the flags to show all connections, numeric addresses, and process IDs."
   },
   {
-    "id": 14,
+    "id": 16,
     "tier": "Networking",
-    "title": "Trace Route",
+    "title": "> Trace Route",
     "description": "Determine the network path a packet takes to reach google.com to find potential routing anomalies.",
     "expected_command": "tracert google.com",
     "hint": "Use the Windows command for tracing the route to a destination."
   },
   {
-    "id": 15,
+    "id": 17,
     "tier": "Networking",
-    "title": "DNS Query",
+    "title": "> DNS Query",
     "description": "Query the MX records for a suspicious domain to see where its email is routed.",
     "expected_command": "nslookup -type=mx suspicious.com",
     "hint": "Use nslookup and set the type flag specifically to 'mx'."
   },
   {
-    "id": 16,
+    "id": 18,
+    "tier": "Networking",
+    "title": "> View ARP Table",
+    "description": "Investigate potential ARP spoofing by viewing the current Address Resolution Protocol table.",
+    "expected_command": "arp -a",
+    "hint": "Use the 'arp' command with the flag that displays all current entries."
+  },
+  {
+    "id": 19,
     "tier": "Security",
-    "title": "Change File Permissions",
+    "title": "> Change File Permissions",
     "description": "Lock down a sensitive file. Change the permissions of 'passwords.txt' so only the owner can read and write to it.",
     "expected_command": "chmod 600 passwords.txt",
     "hint": "Use the 'chmod' command with the numeric value 600 followed by the file name."
   },
   {
-    "id": 17,
+    "id": 20,
     "tier": "Security",
-    "title": "File Integrity Check",
+    "title": "> File Integrity Check",
     "description": "Generate a SHA-256 hash of a downloaded executable to verify it matches the vendor's known-good hash.",
     "expected_command": "sha256sum downloaded_file.exe",
     "hint": "Use the standard Linux tool for computing SHA256 checksums."
   },
   {
-    "id": 18,
+    "id": 21,
     "tier": "Security",
-    "title": "Lock User Account",
+    "title": "> Lock User Account",
     "description": "An employee's account has been compromised. Immediately lock their Linux user account.",
     "expected_command": "passwd -l compromised_user",
     "hint": "Use the 'passwd' command with the lock flag."
   },
   {
-    "id": 19,
+    "id": 22,
     "tier": "Security",
-    "title": "Firewall Rule Addition",
+    "title": "> Firewall Rule Addition",
     "description": "Block all incoming traffic from a known malicious IP address (192.168.1.50) using UFW.",
     "expected_command": "sudo ufw deny from 192.168.1.50",
     "hint": "Invoke sudo, use the 'ufw' tool, and 'deny from' the specific IP."
   },
   {
-    "id": 20,
+    "id": 23,
     "tier": "Security",
-    "title": "Examine Sudoers",
+    "title": "> Examine Sudoers",
     "description": "Check the sudoers file securely to see who has administrative privileges.",
     "expected_command": "sudo visudo",
     "hint": "Never edit the file directly with nano. Use the dedicated sudoers editing command."
+  },
+  {
+    "id": 24,
+    "tier": "Security",
+    "title": "> Check Firewall Status",
+    "description": "Verify that the Uncomplicated Firewall (UFW) is active and running on the Linux server.",
+    "expected_command": "sudo ufw status",
+    "hint": "Use sudo with the 'ufw' tool to check its 'status'."
   }
 ]

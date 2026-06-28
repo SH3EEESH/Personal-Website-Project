@@ -1,0 +1,1052 @@
+[
+  {
+    "id": 1,
+    "category": "Networking",
+    "term": "DNS (Domain Name System)",
+    "definition": "Think of DNS as the phonebook of the internet. When you type something like google.com into your browser, DNS quietly translates that human-friendly name into the actual IP address the computer needs to locate the server. Without it, you'd have to memorize a string of numbers every time you wanted to visit a website, which would be a nightmare.",
+    "related_command": "nslookup google.com"
+  },
+  {
+    "id": 2,
+    "category": "Networking",
+    "term": "DHCP (Dynamic Host Configuration Protocol)",
+    "definition": "DHCP is the reason you don't have to manually type in an IP address every time you connect to Wi-Fi. The moment your device joins a network, DHCP automatically hands it an IP address, subnet mask, default gateway, and DNS server info, all within a few seconds. It is essentially the behind-the-scenes assistant that makes plug-and-play networking possible.",
+    "related_command": "ipconfig /renew  (Windows) | dhclient eth0  (Linux)"
+  },
+  {
+    "id": 3,
+    "category": "Networking",
+    "term": "IP Address (IPv4)",
+    "definition": "An IP address is the unique numerical label assigned to every device on a network, formatted as four numbers between 0 and 255 separated by dots, like 192.168.1.10. Think of it like a home address for your device; data on the internet needs it to know exactly where to go. Without one, your device simply can't communicate on a network.",
+    "related_command": "ipconfig  (Windows) | ip addr show  (Linux)"
+  },
+  {
+    "id": 4,
+    "category": "Networking",
+    "term": "IPv6",
+    "definition": "IPv6 is the next-generation IP addressing system, created because the world essentially ran out of IPv4 addresses. There are only about 4.3 billion of them, which sounds like a lot until you account for billions of devices. Instead of the familiar four-part decimal format, IPv6 uses a 128-bit hexadecimal address like 2001:0db8::1, which supports a virtually unlimited number of unique addresses. Most modern systems support both IPv4 and IPv6 simultaneously.",
+    "related_command": "ip -6 addr show  (Linux) | ipconfig  (Windows shows both)"
+  },
+  {
+    "id": 5,
+    "category": "Networking",
+    "term": "Subnet Mask",
+    "definition": "A subnet mask works alongside an IP address to tell a device which part of the address identifies the network and which part identifies the individual host. For example, with a subnet mask of 255.255.255.0, the first three octets represent the network and the last one represents the specific device. It is what allows your router to figure out whether a destination is on your local network or needs to be sent out to the internet.",
+    "related_command": "ipconfig /all  (Windows) | ip addr show  (Linux)"
+  },
+  {
+    "id": 6,
+    "category": "Networking",
+    "term": "CIDR Notation (Classless Inter-Domain Routing)",
+    "definition": "CIDR is a shorthand way of writing an IP address and its subnet mask together in one compact expression, like 192.168.1.0/24. The number after the slash tells you how many bits are dedicated to the network portion of the address, so /24 means 256 total addresses, /16 gives you 65,536, and so on. Once you get used to it, it is way more intuitive than spelling out the full subnet mask every time.",
+    "related_command": "ipcalc 192.168.1.0/24  (Linux)"
+  },
+  {
+    "id": 7,
+    "category": "Networking",
+    "term": "Default Gateway",
+    "definition": "The default gateway is the router or device on your local network that handles forwarding traffic out to other networks, including the internet. Picture it as the exit door for data that has somewhere else to be. If you don't have a default gateway configured, your device can talk to others on the same local network just fine, but it won't be able to reach anything outside of it.",
+    "related_command": "route -n  (Linux) | route print  (Windows)"
+  },
+  {
+    "id": 8,
+    "category": "Networking",
+    "term": "MAC Address (Media Access Control)",
+    "definition": "A MAC address is a unique hardware identifier that is burned into your network card by the manufacturer, typically formatted as six pairs of hexadecimal digits like AA:BB:CC:DD:EE:FF. While IP addresses handle routing across networks (Layer 3), MAC addresses are what devices use to actually communicate with each other within the same local network (Layer 2). It is meant to be a permanent, hardware-level identity, though it can be spoofed in software, which is a common technique in network attacks.",
+    "related_command": "ip link show  (Linux) | ipconfig /all  (Windows) | arp -a"
+  },
+  {
+    "id": 9,
+    "category": "Networking",
+    "term": "ARP (Address Resolution Protocol)",
+    "definition": "ARP is how your computer figures out the MAC address of another device on the same network when it only knows the IP address. It works by broadcasting a message that essentially says 'Hey, who has IP 192.168.1.5?' and the device with that IP responds with its MAC address. Without ARP, devices on the same network wouldn't be able to physically deliver data to each other. It is the glue between Layer 2 and Layer 3.",
+    "related_command": "arp -a"
+  },
+  {
+    "id": 10,
+    "category": "Networking",
+    "term": "NAT (Network Address Translation)",
+    "definition": "NAT is the technology that lets an entire home or office network share a single public IP address. Your router keeps track of which internal device made which request, and when traffic comes back from the internet, it knows which device to forward it to. This is why all your home devices can browse the web simultaneously through one connection. It also plays a role in conserving the limited pool of IPv4 addresses.",
+    "related_command": "N/A (configured in router/firewall)"
+  },
+  {
+    "id": 11,
+    "category": "Networking",
+    "term": "TCP (Transmission Control Protocol)",
+    "definition": "TCP is a connection-oriented protocol that prioritizes reliability over speed. Before any data is sent, both sides perform a 3-way handshake to establish a connection, and throughout the session TCP confirms that packets arrive correctly and retransmits any that get lost along the way. This makes it ideal for things like web browsing, email, and SSH, scenarios where data accuracy matters more than raw speed.",
+    "related_command": "tcpdump -i eth0 tcp  (Linux)"
+  },
+  {
+    "id": 12,
+    "category": "Networking",
+    "term": "UDP (User Datagram Protocol)",
+    "definition": "UDP is the 'fire and forget' cousin of TCP. It sends data without establishing a connection first or confirming that packets arrived. That makes it much faster and lower overhead, which is exactly what you want for things like video streaming, online gaming, VoIP calls, and DNS lookups where a tiny bit of packet loss is acceptable but delays are not. If you've ever had a video call glitch for a second and keep going, that is UDP doing its job.",
+    "related_command": "tcpdump -i eth0 udp  (Linux)"
+  },
+  {
+    "id": 13,
+    "category": "Networking",
+    "term": "TCP 3-Way Handshake",
+    "definition": "Before TCP sends any real data, it runs a quick three-step process to make sure both sides are ready and in sync. First, the client sends a SYN (synchronize) packet saying 'I want to connect.' The server responds with SYN-ACK meaning 'Got it, ready.' Then the client sends ACK to confirm, and the connection is officially open. This is an important concept to understand because attacks like SYN floods exploit this process by sending massive numbers of SYN packets without completing the handshake, overwhelming the server.",
+    "related_command": "tcpdump -i eth0 'tcp[tcpflags] & (tcp-syn) != 0'"
+  },
+  {
+    "id": 14,
+    "category": "Networking",
+    "term": "OSI Model (Open Systems Interconnection)",
+    "definition": "The OSI model is a 7-layer conceptual framework that breaks down how data travels across a network into distinct, understandable steps, from the physical cables all the way up to the application you're using. The layers are: Physical, Data Link, Network, Transport, Session, Presentation, and Application. A popular mnemonic to remember them is 'Please Do Not Throw Sausage Pizza Away.' Understanding which layer an attack or protocol operates at helps you know where to look when something goes wrong.",
+    "related_command": "N/A (conceptual model)"
+  },
+  {
+    "id": 15,
+    "category": "Networking",
+    "term": "TCP/IP Model",
+    "definition": "The TCP/IP model is the simplified, practical version of the OSI model that describes how the internet actually functions. Instead of seven layers, it has four: Link (hardware communication), Internet (IP routing), Transport (TCP/UDP), and Application (HTTP, DNS, etc.). While the OSI model is great for learning and troubleshooting concepts, TCP/IP is what is actually running under the hood of the modern internet.",
+    "related_command": "N/A (conceptual model)"
+  },
+  {
+    "id": 16,
+    "category": "Networking",
+    "term": "Router",
+    "definition": "A router is the device responsible for forwarding data packets between different networks. It operates at Layer 3 of the OSI model and makes routing decisions based on IP addresses, essentially reading the destination address on each packet and figuring out the best path to send it. Your home router does double duty as both a router (connecting your LAN to the internet) and often a switch and wireless access point too.",
+    "related_command": "traceroute 8.8.8.8  (Linux) | tracert 8.8.8.8  (Windows)"
+  },
+  {
+    "id": 17,
+    "category": "Networking",
+    "term": "Switch",
+    "definition": "A switch is what connects multiple devices together within the same local network. Unlike a hub, a switch is smart. It learns the MAC addresses of connected devices and sends traffic only to the intended recipient rather than blasting it to everyone on the network. This makes switches both more efficient and more secure than their older hub counterparts.",
+    "related_command": "N/A (hardware device)"
+  },
+  {
+    "id": 18,
+    "category": "Networking",
+    "term": "Hub",
+    "definition": "A hub is an older, much simpler networking device that connects multiple devices together, but with one major downside: it broadcasts every incoming packet to all connected devices, not just the intended one. This is both inefficient and a security risk, because anyone connected to the same hub can sniff all the traffic passing through it. Hubs have been almost entirely replaced by switches and aren't something you'll see in modern networks.",
+    "related_command": "N/A (hardware device)"
+  },
+  {
+    "id": 19,
+    "category": "Networking",
+    "term": "Firewall",
+    "definition": "A firewall is a security system (hardware, software, or both) that monitors incoming and outgoing network traffic and decides what to allow or block based on a set of predefined rules. Think of it as a security guard at the entrance of your network, checking IDs before letting anything in or out. Firewalls are one of the most fundamental tools in network security and form the first major layer of defense.",
+    "related_command": "iptables -L  (Linux) | Get-NetFirewallRule  (PowerShell)"
+  },
+  {
+    "id": 20,
+    "category": "Networking",
+    "term": "VPN (Virtual Private Network)",
+    "definition": "A VPN creates an encrypted tunnel for your internet traffic, hiding your real IP address and protecting your data from anyone who might be eavesdropping, especially important on public Wi-Fi. It makes it look like your traffic is coming from the VPN server's location instead of your own, which is also why people use them to bypass geo-restrictions. In a corporate setting, VPNs are commonly used to let remote employees securely access internal company resources.",
+    "related_command": "openvpn --config client.ovpn  (Linux)"
+  },
+  {
+    "id": 21,
+    "category": "Networking",
+    "term": "Port",
+    "definition": "If an IP address is like a building's street address, then ports are the individual apartment numbers inside it. Port numbers (ranging from 0 to 65535) allow a single device to run multiple network services simultaneously and route each type of traffic to the right place. Some ports you'll want to memorize: 22 (SSH), 80 (HTTP), 443 (HTTPS), 21 (FTP), 53 (DNS), 25 (SMTP), and 3389 (RDP).",
+    "related_command": "netstat -an  (Windows/Linux) | ss -tuln  (Linux)"
+  },
+  {
+    "id": 22,
+    "category": "Networking",
+    "term": "HTTP (HyperText Transfer Protocol)",
+    "definition": "HTTP is the protocol that powers the web. It is how your browser requests pages and how servers send them back. The catch is that HTTP transmits everything in plain text, meaning anyone who intercepts the traffic can read it directly. Running on port 80, it has largely been replaced by HTTPS for anything sensitive, and you should be wary of any site that still only uses plain HTTP for logins or forms.",
+    "related_command": "curl http://example.com"
+  },
+  {
+    "id": 23,
+    "category": "Networking",
+    "term": "HTTPS (HTTP Secure)",
+    "definition": "HTTPS is the secure version of HTTP, layering SSL/TLS encryption on top of standard web communication to protect data in transit between your browser and the server. It runs on port 443, and you can tell it is active by the padlock icon in your browser's address bar. Anytime you're logging in, making a purchase, or sharing any sensitive info online, HTTPS is what is keeping that data from being read by someone in the middle.",
+    "related_command": "curl https://example.com"
+  },
+  {
+    "id": 24,
+    "category": "Networking",
+    "term": "SSL/TLS (Secure Sockets Layer / Transport Layer Security)",
+    "definition": "SSL and TLS are the cryptographic protocols that make HTTPS work. SSL is the older, now-deprecated version, and TLS is its modern, more secure successor. People often still casually say 'SSL' to mean both. The way it works is clever: it uses asymmetric encryption for the initial handshake (to securely exchange keys), then switches to faster symmetric encryption for the actual data transfer. Every time you see that padlock in your browser, TLS is working behind the scenes.",
+    "related_command": "openssl s_client -connect google.com:443"
+  },
+  {
+    "id": 25,
+    "category": "Networking",
+    "term": "Packet",
+    "definition": "When you send data over a network, it doesn't travel as one big chunk. It gets broken into smaller pieces called packets. Each packet has a header containing metadata like the source and destination IP addresses, port numbers, and protocol, plus a payload which is the actual data being sent. Packets may take different routes to reach the destination and get reassembled in the correct order on the other end, which is part of what TCP manages.",
+    "related_command": "tcpdump -i eth0  (Linux) | wireshark  (GUI)"
+  },
+  {
+    "id": 26,
+    "category": "Networking",
+    "term": "Bandwidth",
+    "definition": "Bandwidth refers to the maximum amount of data that can travel through a network connection at one time, measured in Mbps or Gbps. A helpful analogy is thinking of it like a pipe where a wider pipe lets more water flow through simultaneously. It is commonly confused with speed, but bandwidth is really the capacity of the connection, while latency is how fast individual data travels through it.",
+    "related_command": "iperf3 -c server_ip  (bandwidth test)"
+  },
+  {
+    "id": 27,
+    "category": "Networking",
+    "term": "Latency",
+    "definition": "Latency is the time it takes for a packet to travel from your device to a destination and back, measured in milliseconds. You have probably seen it referred to as 'ping' in games. Low ping means low latency, which means a more responsive connection. Latency is affected by the physical distance to the server, the number of hops along the route, and network congestion, so even a high-bandwidth connection can feel sluggish if latency is high.",
+    "related_command": "ping google.com"
+  },
+  {
+    "id": 28,
+    "category": "Networking",
+    "term": "VLAN (Virtual Local Area Network)",
+    "definition": "A VLAN lets you logically segment a network into separate groups, even if the devices are all physically connected to the same switch. For example, you could put your smart home devices on one VLAN and your work computers on another, so that even if an IoT device gets compromised, it can't reach your sensitive machines. It is like building walls inside a building without having to physically move any furniture.",
+    "related_command": "N/A (configured on managed switches)"
+  },
+  {
+    "id": 29,
+    "category": "Networking",
+    "term": "Ping",
+    "definition": "Ping is one of the most basic and useful network diagnostic tools. It sends a small ICMP Echo Request to a host and measures how long it takes to get a response back. If you get a reply, the host is up and reachable; if not, there could be a routing issue, a firewall blocking ICMP, or the host might simply be down. It is usually the very first thing you run when troubleshooting a connection problem.",
+    "related_command": "ping 8.8.8.8  |  ping -c 4 google.com  (Linux, limits to 4 packets)"
+  },
+  {
+    "id": 30,
+    "category": "Networking",
+    "term": "Traceroute / Tracert",
+    "definition": "Where ping tells you if a destination is reachable, traceroute tells you the full path your traffic takes to get there, listing every router hop along the way along with the latency at each step. This makes it incredibly useful for diagnosing exactly where a connection slows down or breaks. Rather than just knowing that something is wrong, you can see precisely where it is going wrong.",
+    "related_command": "traceroute google.com  (Linux) | tracert google.com  (Windows)"
+  },
+  {
+    "id": 31,
+    "category": "Networking",
+    "term": "Proxy Server",
+    "definition": "A proxy server sits in between your device and the websites you visit, forwarding your requests on your behalf. This lets the destination server see the proxy's IP address instead of yours, providing a layer of anonymity. Proxies are also used in corporate environments for caching content, filtering what sites employees can access, and inspecting traffic. Unlike a VPN, a standard proxy doesn't encrypt your traffic by default.",
+    "related_command": "curl --proxy http://proxy_ip:port https://example.com"
+  },
+  {
+    "id": 32,
+    "category": "Networking",
+    "term": "DMZ (Demilitarized Zone)",
+    "definition": "In networking, a DMZ is an isolated network segment that sits between the public internet and a private internal network. It is typically where you would put public-facing servers like a web server or mail server since they need to be accessible from the internet, but you don't want them to have direct access to your internal systems in case they get compromised. Think of it as a secure reception area: visitors can enter, but they can't walk into the back office.",
+    "related_command": "N/A (network architecture concept)"
+  },
+  {
+    "id": 33,
+    "category": "Linux",
+    "term": "Root Directory (/)",
+    "definition": "The root directory, represented by a single forward slash, is the very top of the Linux file system. Everything else branches out from here. Every file, directory, and device on a Linux system exists somewhere underneath /. It is worth noting that this is different from the root user's home directory, which lives at /root. Any path that starts with / is an absolute path beginning from this point.",
+    "related_command": "cd /"
+  },
+  {
+    "id": 34,
+    "category": "Linux",
+    "term": "pwd (Print Working Directory)",
+    "definition": "When you're navigating around in the terminal, it is easy to lose track of where you actually are. That is exactly what pwd is for. It prints the full absolute path of your current directory so you always know your exact location in the file system. It is a small command but you will use it constantly.",
+    "related_command": "pwd"
+  },
+  {
+    "id": 35,
+    "category": "Linux",
+    "term": "ls (List)",
+    "definition": "The ls command lists the contents of a directory, and with the right flags it becomes much more informative. Running ls -la gives you a detailed view that includes hidden files (those starting with a dot), file permissions, ownership, file sizes, and the last modified date for everything in the directory. It is typically one of the first commands you run when you land in a new directory.",
+    "related_command": "ls -la"
+  },
+  {
+    "id": 36,
+    "category": "Linux",
+    "term": "cd (Change Directory)",
+    "definition": "The cd command is how you move between directories in the terminal. There are a few shortcuts worth knowing: cd .. takes you up one level, cd ~ takes you straight back to your home directory, and providing an absolute path like cd /var/log takes you exactly there. It is the most fundamental navigation command you will use in Linux.",
+    "related_command": "cd /var/log  |  cd ..  |  cd ~"
+  },
+  {
+    "id": 37,
+    "category": "Linux",
+    "term": "mkdir (Make Directory)",
+    "definition": "mkdir creates a new directory at the path you specify. The handy -p flag lets you create a whole chain of nested directories at once without getting errors for parent directories that don't exist yet. So something like mkdir -p projects/web/css would build all three levels in one shot.",
+    "related_command": "mkdir new_folder  |  mkdir -p projects/web/css"
+  },
+  {
+    "id": 38,
+    "category": "Linux",
+    "term": "rm (Remove)",
+    "definition": "The rm command permanently deletes files or directories, and we mean permanently, there is no recycle bin or undo. The -r flag removes directories recursively (everything inside them too), and the -f flag forces the deletion without prompting for confirmation. Because of this, rm -rf is one of the most dangerous commands you can run if you're not careful, so always double-check your path before pressing Enter.",
+    "related_command": "rm file.txt  |  rm -rf folder/"
+  },
+  {
+    "id": 39,
+    "category": "Linux",
+    "term": "cp (Copy)",
+    "definition": "cp copies files or directories from one location to another, leaving the original untouched. When copying an entire directory (and everything inside it), you need to add -r for recursive. It follows a simple source then destination pattern: cp what_to_copy where_to_put_it.",
+    "related_command": "cp file.txt /backup/  |  cp -r folder/ /backup/"
+  },
+  {
+    "id": 40,
+    "category": "Linux",
+    "term": "mv (Move / Rename)",
+    "definition": "The mv command does double duty. It both moves files to a different location and renames them. When the source and destination are in the same directory, it functions as a rename. When they're in different directories, it moves the file and removes it from the original location. Unlike cp, no -r flag is needed for directories.",
+    "related_command": "mv file.txt /tmp/  |  mv oldname.txt newname.txt"
+  },
+  {
+    "id": 41,
+    "category": "Linux",
+    "term": "cat (Concatenate)",
+    "definition": "The cat command reads and prints the contents of a file directly to the terminal, making it perfect for quickly peeking inside a config file or log without opening an editor. It can also be used to combine multiple files into one by chaining them together. For very large files though, you're better off using less or more so you can scroll through the content instead of it all blasting past at once.",
+    "related_command": "cat /etc/passwd  |  cat file1.txt file2.txt"
+  },
+  {
+    "id": 42,
+    "category": "Linux",
+    "term": "grep (Global Regular Expression Print)",
+    "definition": "grep searches through files or command output for lines that match a pattern you define and prints only those matching lines. It is incredibly powerful and something you will use constantly from hunting through log files to filtering command output in pipelines. The -i flag makes the search case-insensitive, -r searches through directories recursively, and -n adds line numbers to the results.",
+    "related_command": "grep 'error' /var/log/syslog  |  grep -ri 'password' /etc/"
+  },
+  {
+    "id": 43,
+    "category": "Linux",
+    "term": "chmod (Change Mode / File Permissions)",
+    "definition": "Every file in Linux has permissions that control who can read, write, or execute it. chmod is the command that changes those permissions. You can use numeric notation like chmod 755, where each digit represents the permissions for the owner, group, and everyone else respectively where 7 is full access, 5 is read and execute, and so on. You can also use symbolic notation like chmod +x to add execute permission without touching the others.",
+    "related_command": "chmod 755 script.sh  |  chmod +x script.sh"
+  },
+  {
+    "id": 44,
+    "category": "Linux",
+    "term": "chown (Change Owner)",
+    "definition": "chown changes who owns a file or directory. Every file on a Linux system belongs to a user and a group, and chown lets you reassign that ownership using the format user:group. Adding the -R flag applies the change recursively to every file inside a directory, which is useful when setting up web server directories or transferring files between accounts.",
+    "related_command": "chown misha:misha file.txt  |  chown -R www-data:www-data /var/www/"
+  },
+  {
+    "id": 45,
+    "category": "Linux",
+    "term": "sudo (Superuser Do)",
+    "definition": "sudo lets you run a specific command with root-level privileges without permanently switching to the root account. It is the standard way to handle admin tasks in Linux for installing packages, editing system files, managing services while keeping things safer than logging in as root. An added benefit is that sudo logs every command it is used with, giving you an audit trail of who did what.",
+    "related_command": "sudo apt update  |  sudo nano /etc/hosts"
+  },
+  {
+    "id": 46,
+    "category": "Linux",
+    "term": "apt / apt-get (Advanced Package Tool)",
+    "definition": "apt is the package manager used on Debian-based Linux distributions like Ubuntu and Kali Linux. You use it to install, update, and remove software packages from the command line. The golden rule is to always run apt update first to refresh the list of available packages before installing anything. Otherwise, you might pull an outdated version.",
+    "related_command": "sudo apt update && sudo apt install nmap"
+  },
+  {
+    "id": 47,
+    "category": "Linux",
+    "term": "ps (Process Status)",
+    "definition": "ps shows you a snapshot of the processes currently running on the system. The most useful form is ps aux, which lists every process from every user along with CPU and memory usage. From a security standpoint, it is valuable for spotting unexpected or suspicious processes that might indicate something on the system shouldn't be there.",
+    "related_command": "ps aux  |  ps aux | grep apache"
+  },
+  {
+    "id": 48,
+    "category": "Linux",
+    "term": "top / htop",
+    "definition": "Think of top as the Linux version of Task Manager, a live, updating view of system resource usage, running processes, CPU load, and memory consumption. htop is an improved, more colorful version of top that is a bit easier to read and navigate, though it may need to be installed separately. Either way, these are the tools you reach for when you want to see what your system is doing in real time. Press q to quit.",
+    "related_command": "top  |  htop"
+  },
+  {
+    "id": 49,
+    "category": "Linux",
+    "term": "kill / killall",
+    "definition": "When a process is misbehaving or needs to be stopped, the kill command sends it a signal to terminate, and the most forceful version, kill -9, sends a SIGKILL signal that the process cannot ignore or catch. You need the process ID (PID), which you can find with ps or top. If you'd rather kill by name instead of PID, killall process_name handles that for you.",
+    "related_command": "kill -9 1234  |  killall firefox"
+  },
+  {
+    "id": 50,
+    "category": "Linux",
+    "term": "find",
+    "definition": "The find command searches through the file system for files and directories matching criteria you specify like name, file type, size, or when it was last modified. It is one of the most powerful tools in Linux, especially when you're trying to locate a specific file across a large system. During a CTF or security investigation, find / -name 'flag.txt' is a classic move.",
+    "related_command": "find / -name 'passwords.txt'  |  find /var -mtime -1 -type f"
+  },
+  {
+    "id": 51,
+    "category": "Linux",
+    "term": "head / tail",
+    "definition": "head prints the first N lines of a file (10 by default), and tail prints the last N lines. Both accept a -n flag to specify how many lines you want. The really useful trick with tail is the -f flag, which keeps the file open and continuously prints new lines as they are added, making it the go-to command for monitoring a live log file in real time.",
+    "related_command": "head -n 20 file.txt  |  tail -f /var/log/syslog"
+  },
+  {
+    "id": 52,
+    "category": "Linux",
+    "term": "nano",
+    "definition": "nano is a beginner-friendly terminal text editor that shows its most important keyboard shortcuts right at the bottom of the screen, so you are never completely lost. Ctrl+O saves the file, Ctrl+X exits, and Ctrl+W lets you search. It is a great starting point for editing configuration files without having to deal with the steeper learning curve of vim.",
+    "related_command": "nano /etc/hosts"
+  },
+  {
+    "id": 53,
+    "category": "Linux",
+    "term": "vim / vi",
+    "definition": "vim is a powerful, highly configurable terminal text editor that operates in modes. You start in Normal mode for navigation and commands, and press i to switch to Insert mode to actually type. When you're done, hit Escape to return to Normal mode, then type :wq to save and quit, or :q! to quit without saving. The learning curve is notoriously steep at first, but once it clicks, vim is blazing fast for editing files entirely from the keyboard.",
+    "related_command": "vim config.txt"
+  },
+  {
+    "id": 54,
+    "category": "Linux",
+    "term": "ssh (Secure Shell)",
+    "definition": "SSH is the standard way to securely log into and run commands on remote machines over an untrusted network. All communication is encrypted, which is why it replaced the older, plaintext-based Telnet. It runs on port 22 by default and supports both password and key-based authentication, the latter being much more secure since there is no password to intercept or guess.",
+    "related_command": "ssh user@192.168.1.10  |  ssh -i key.pem user@server"
+  },
+  {
+    "id": 55,
+    "category": "Linux",
+    "term": "scp (Secure Copy Protocol)",
+    "definition": "scp lets you securely transfer files between your local machine and a remote server or between two remote servers using the same encryption as SSH. The syntax follows a familiar copy pattern but adds user@hostname: to indicate a remote path. It is perfect for pulling log files off a server or pushing a config update without needing an FTP server.",
+    "related_command": "scp file.txt user@192.168.1.10:/home/user/  |  scp user@server:/file.txt ."
+  },
+  {
+    "id": 56,
+    "category": "Linux",
+    "term": "wget",
+    "definition": "wget is a straightforward command-line tool for downloading files from the internet over HTTP, HTTPS, or FTP. It works non-interactively, meaning it can run in the background or inside scripts without needing user input, even resuming interrupted downloads with the -c flag. The -O flag lets you control what the downloaded file is named.",
+    "related_command": "wget https://example.com/file.zip  |  wget -O output.html https://example.com"
+  },
+  {
+    "id": 57,
+    "category": "Linux",
+    "term": "curl",
+    "definition": "curl is a flexible data-transfer tool that goes well beyond just downloading files. It supports a wide range of protocols and lets you customize requests with headers, form data, authentication, and HTTP methods, making it ideal for testing APIs, debugging web requests, or interacting with web services from the command line. It is more feature-rich than wget and is the go-to choice in security testing and scripting.",
+    "related_command": "curl https://example.com  |  curl -X POST -d 'user=test' http://api.example.com"
+  },
+  {
+    "id": 58,
+    "category": "Linux",
+    "term": "tar (Tape Archive)",
+    "definition": "tar is the standard Linux tool for bundling files into an archive and compressing them. The flags can look intimidating at first, but a simple trick helps: for extracting, use -xvzf (eXtract, Verbose, gunZip, File) and for creating, use -czvf (Create, gunZip, Verbose, File). Once that pattern sticks, tar becomes a lot less scary.",
+    "related_command": "tar -czvf archive.tar.gz folder/  |  tar -xvzf archive.tar.gz"
+  },
+  {
+    "id": 59,
+    "category": "Linux",
+    "term": "netstat / ss",
+    "definition": "These tools show you the current state of your network connections, which ports are open and listening, which are actively established, and what processes are behind them. ss is the modern replacement for the older netstat, and ss -tuln is a great default to run: it lists all TCP and UDP ports that are currently listening without trying to resolve hostnames, which keeps the output clean and fast. This is a key command for spotting unexpected open ports.",
+    "related_command": "ss -tuln  |  netstat -an  |  ss -tp  (shows associated PIDs)"
+  },
+  {
+    "id": 60,
+    "category": "Linux",
+    "term": "ifconfig / ip addr",
+    "definition": "These commands display your network interface information, including IP addresses, subnet masks, MAC addresses, and interface names like eth0 or wlan0. ifconfig is the classic tool but has been deprecated on many modern distros in favor of the ip command suite. ip addr show is the modern equivalent and the one you will want to get comfortable with on current Linux systems.",
+    "related_command": "ip addr show  |  ifconfig"
+  },
+  {
+    "id": 61,
+    "category": "Linux",
+    "term": "nmap (Network Mapper)",
+    "definition": "nmap is an open-source tool that has become the gold standard for network discovery and security scanning. It can scan a host or range of hosts to discover which ports are open, what services are running on those ports, and even fingerprint the operating system. It is used in CTF competitions, penetration testing, and everyday network administration and is worth getting very comfortable with early in your security journey.",
+    "related_command": "nmap -sV 192.168.1.1  |  nmap -A -T4 192.168.1.0/24"
+  },
+  {
+    "id": 62,
+    "category": "Linux",
+    "term": "man (Manual Pages)",
+    "definition": "The man command pulls up the built-in manual page for any command, giving you a complete breakdown of what it does, all available flags, and usage examples right inside the terminal without needing to Google anything. It is often underused by beginners but is genuinely one of the most valuable tools available. When in doubt, man it out, and press q when you're done reading.",
+    "related_command": "man nmap  |  man grep  |  man chmod"
+  },
+  {
+    "id": 63,
+    "category": "Linux",
+    "term": "echo",
+    "definition": "echo prints whatever text or variable value you give it directly to the terminal. It seems simple, but it is used constantly in shell scripting for displaying status messages, debugging variable contents, or writing data to files. Combine it with > to write to a file or >> to append to an existing file without overwriting what is already there.",
+    "related_command": "echo 'Hello World'  |  echo $PATH  |  echo 'entry' >> file.txt"
+  },
+  {
+    "id": 64,
+    "category": "Linux",
+    "term": "whoami / id",
+    "definition": "whoami answers the simple but important question of which user you're currently operating as. id goes a step further, showing your user ID (UID), group ID (GID), and all the groups your account belongs to. In security contexts, these are often the first commands run after gaining access to a system, since knowing your current privilege level is critical before taking any further steps.",
+    "related_command": "whoami  |  id"
+  },
+  {
+    "id": 65,
+    "category": "Linux",
+    "term": "uname",
+    "definition": "uname displays information about the operating system and kernel currently running on the machine. The -a flag gives you everything at once: the kernel name, hostname, kernel version, hardware architecture, and OS name. This is commonly used at the start of a session to understand the environment you're working in, whether for administration or security assessment.",
+    "related_command": "uname -a"
+  },
+  {
+    "id": 66,
+    "category": "Linux",
+    "term": "history",
+    "definition": "The history command shows a numbered list of the commands you have previously run in the terminal. You can re-run any previous command by typing !number, and pipe the output through grep to search for specific past commands. Keep in mind that your bash history is stored in ~/.bash_history and is one of the first places both forensic analysts and attackers look when investigating a compromised system.",
+    "related_command": "history  |  history | grep ssh"
+  },
+  {
+    "id": 67,
+    "category": "Linux",
+    "term": "crontab (Cron Table)",
+    "definition": "Cron is Linux's built-in task scheduler, and crontab is how you interact with it. Each line in a crontab follows the format: minute hour day month weekday command, allowing you to schedule scripts to run at precise times or intervals automatically. It is essential for automation, but it is also worth knowing that attackers commonly abuse crontab entries to maintain persistent access on a compromised machine.",
+    "related_command": "crontab -e  (edit) |  crontab -l  (list current cron jobs)"
+  },
+  {
+    "id": 68,
+    "category": "Linux",
+    "term": "passwd",
+    "definition": "The passwd command changes a user account's password. When run without arguments, it changes the password for the currently logged-in user by prompting for the current password first. With sudo, you can change any user's password by specifying their username. It is a good habit to change passwords immediately after any suspected compromise of an account.",
+    "related_command": "passwd  |  sudo passwd username"
+  },
+  {
+    "id": 69,
+    "category": "Linux",
+    "term": "tcpdump",
+    "definition": "tcpdump is a command-line packet analyzer that captures network traffic passing through a network interface in real time. Think of it as a lightweight, terminal-based version of Wireshark that works on servers without a graphical interface. You can filter captures by protocol, port, or IP address, and save the output to a .pcap file for later analysis, which is exactly what Wireshark can then open and visualize.",
+    "related_command": "tcpdump -i eth0  |  tcpdump -i eth0 port 80 -w capture.pcap"
+  },
+  {
+    "id": 70,
+    "category": "Linux",
+    "term": "Pipe Operator ( | )",
+    "definition": "The pipe operator takes the output of one command and feeds it directly as the input to the next command, letting you chain multiple tools together into a single, powerful one-liner. This is one of the most fundamental and elegant ideas in Linux. Instead of saving intermediate results to a file, you just connect the commands together. For example, ps aux | grep apache filters the process list down to only Apache-related processes.",
+    "related_command": "ps aux | grep apache  |  cat access.log | grep 'POST' | wc -l"
+  },
+  {
+    "id": 71,
+    "category": "Linux",
+    "term": "Redirection Operators ( > and >> )",
+    "definition": "The > operator redirects a command's output into a file instead of printing it to the terminal, overwriting any existing content in that file. The >> operator does the same thing but appends to the end of the file rather than overwriting it. Both are incredibly useful for saving command results to logs or building files incrementally in scripts.",
+    "related_command": "ls -la > output.txt  |  echo 'log entry' >> app.log"
+  },
+  {
+    "id": 72,
+    "category": "Linux",
+    "term": "/etc/passwd",
+    "definition": "Despite its misleading name, the /etc/passwd file doesn't actually store passwords on modern Linux systems since those are kept in /etc/shadow. What it does store is basic user account information: usernames, user IDs, group IDs, home directories, and default shells, one entry per line. It is readable by all users on the system, and viewing it is typically one of the first things done during system enumeration in a CTF.",
+    "related_command": "cat /etc/passwd"
+  },
+  {
+    "id": 73,
+    "category": "Linux",
+    "term": "/var/log/",
+    "definition": "The /var/log/ directory is where Linux stores most of its system and application log files. Key ones to know include syslog (general system messages), auth.log (all authentication events like logins and sudo usage), kern.log (kernel messages), and any application-specific logs like apache2/access.log. During incident response, these logs are some of the most valuable evidence you have since they tell the story of what happened on the system.",
+    "related_command": "ls /var/log/  |  tail -f /var/log/auth.log"
+  },
+  {
+    "id": 74,
+    "category": "Powershell",
+    "term": "Get-Help",
+    "definition": "Get-Help is PowerShell's built-in documentation system, essentially the man pages of the Windows world. Run it before any cmdlet you're unfamiliar with and it will show you the syntax, a description of what it does, all available parameters, and often usage examples. Adding -Examples to the end gives you just the practical examples without the rest of the documentation. Running Update-Help first ensures the local docs are current.",
+    "related_command": "Get-Help Get-Process  |  Get-Help Get-Service -Examples"
+  },
+  {
+    "id": 75,
+    "category": "Powershell",
+    "term": "Get-Command",
+    "definition": "Get-Command lists every cmdlet, function, script, and alias available in your current PowerShell session. Its real power comes from using wildcards to search for commands related to what you're trying to do. So if you know you need to do something with the network but can't remember the exact cmdlet, Get-Command *network* will show you everything relevant. It is the perfect tool for exploring what PowerShell can do.",
+    "related_command": "Get-Command  |  Get-Command *network* |  Get-Command -Verb Get"
+  },
+  {
+    "id": 76,
+    "category": "Powershell",
+    "term": "Get-Process",
+    "definition": "Get-Process gives you a real-time list of all running processes on a local or remote machine, showing the process name, ID (PID), CPU usage, and memory consumption. It is the command-line equivalent of opening Task Manager and is particularly useful in security investigations when you're trying to spot suspicious or unauthorized processes running on a system.",
+    "related_command": "Get-Process  |  Get-Process -Name chrome  |  Get-Process -ComputerName Server01"
+  },
+  {
+    "id": 77,
+    "category": "Powershell",
+    "term": "Get-Service",
+    "definition": "Get-Service lists all of the services installed on a Windows machine along with their current status like Running, Stopped, or Paused. In security work, it is useful both for confirming that critical services are functioning and for identifying any unexpected services that might have been installed as backdoors or malware persistence mechanisms.",
+    "related_command": "Get-Service  |  Get-Service -Name W32Time  |  Get-Service | Where-Object {$_.Status -eq 'Running'}"
+  },
+  {
+    "id": 78,
+    "category": "Powershell",
+    "term": "Start-Service / Stop-Service / Restart-Service",
+    "definition": "These three cmdlets give you direct control over Windows services from the command line for starting them, stopping them, or restarting them. They require administrator privileges for most system services, and they are commonly used during incident response to disable a suspected compromised service or during system administration to restart a service that has stopped responding.",
+    "related_command": "Start-Service -Name Spooler  |  Stop-Service -Name wuauserv  |  Restart-Service -Name W32Time"
+  },
+  {
+    "id": 79,
+    "category": "Powershell",
+    "term": "Set-ExecutionPolicy",
+    "definition": "By default, PowerShell won't run scripts as a security precaution. That is the 'Restricted' execution policy at work. Set-ExecutionPolicy lets you change that behavior, and 'RemoteSigned' is the most commonly used setting: it allows locally created scripts to run freely while requiring downloaded scripts to be digitally signed by a trusted publisher. Always think carefully before setting it to 'Unrestricted', as that removes all script restrictions entirely.",
+    "related_command": "Get-ExecutionPolicy  |  Set-ExecutionPolicy RemoteSigned -Scope CurrentUser"
+  },
+  {
+    "id": 80,
+    "category": "Powershell",
+    "term": "Get-EventLog",
+    "definition": "Get-EventLog queries the classic Windows Event Logs like System, Application, Security from the local machine or a remote one. It is a great tool for digging into what has happened on a system, whether you are looking at login events, service failures, or application errors. Note that Get-WinEvent is the more modern and flexible alternative preferred on current versions of Windows.",
+    "related_command": "Get-EventLog -LogName Security -Newest 50  |  Get-EventLog -LogName System -EntryType Error"
+  },
+  {
+    "id": 81,
+    "category": "Powershell",
+    "term": "Get-WinEvent",
+    "definition": "Get-WinEvent is the modern, more powerful successor to Get-EventLog. Its FilterHashtable parameter lets you filter events by log name, event ID, date range, and more all at once. It is significantly faster than Get-EventLog when working with large logs. A few event IDs worth memorizing: 4625 = failed login attempt, 4624 = successful login, 4688 = new process created. These are gold during security investigations.",
+    "related_command": "Get-WinEvent -FilterHashtable @{LogName='Security'; ID=4625}  (failed logins)"
+  },
+  {
+    "id": 82,
+    "category": "Powershell",
+    "term": "Invoke-Command",
+    "definition": "Invoke-Command lets you run PowerShell commands on one or more remote computers as if you were sitting in front of them. It requires PowerShell Remoting (WinRM) to be enabled on the target, but once it is, you can pass a script block of commands to execute remotely and get the results back. It is heavily used in enterprise environments for managing fleets of machines and is a key tool for security assessments as well.",
+    "related_command": "Invoke-Command -ComputerName Server01 -ScriptBlock { Get-Process }  |  Invoke-Command -ComputerName Server01 -Credential (Get-Credential) -ScriptBlock { Get-Service }"
+  },
+  {
+    "id": 83,
+    "category": "Powershell",
+    "term": "Get-NetIPAddress",
+    "definition": "Get-NetIPAddress retrieves the IP address configuration for all network adapters on the system, showing both IPv4 and IPv6 addresses, prefix lengths, and interface aliases. It is the PowerShell equivalent of running ipconfig, and filtering it with -AddressFamily IPv4 keeps the output clean if you only need the v4 addresses.",
+    "related_command": "Get-NetIPAddress  |  Get-NetIPAddress -AddressFamily IPv4"
+  },
+  {
+    "id": 84,
+    "category": "Powershell",
+    "term": "Test-NetConnection",
+    "definition": "Test-NetConnection is a much more informative version of a basic ping. It tests whether a specific TCP port is reachable on a remote host, reports the latency, and can even trace the network route. This makes it invaluable for troubleshooting firewall rules and verifying that services are accessible. For example, quickly checking if port 443 is open on a web server without needing any third-party tools.",
+    "related_command": "Test-NetConnection -ComputerName google.com -Port 443  |  Test-NetConnection -ComputerName 192.168.1.1 -TraceRoute"
+  },
+  {
+    "id": 85,
+    "category": "Powershell",
+    "term": "Get-ChildItem (gci / ls / dir)",
+    "definition": "Get-ChildItem is PowerShell's directory listing command, the equivalent of ls in Linux or dir in CMD. It lists files and directories at a given path and supports wildcards and recursive searching with -Recurse. What makes it particularly interesting is that it also works on non-file-system paths like the Windows Registry and Certificate stores, not just regular folders.",
+    "related_command": "Get-ChildItem -Path C:\\Users  |  Get-ChildItem -Recurse -Filter *.txt  |  gci"
+  },
+  {
+    "id": 86,
+    "category": "Powershell",
+    "term": "Copy-Item / Move-Item / Remove-Item",
+    "definition": "These three cmdlets handle your basic file management needs in PowerShell: Copy-Item duplicates a file or directory while leaving the original, Move-Item relocates it and removes the source, and Remove-Item deletes it entirely. For directories, add -Recurse to handle everything inside them, and use -Force to skip confirmation prompts. As with rm on Linux, always double-check your path before running Remove-Item.",
+    "related_command": "Copy-Item C:\\file.txt D:\\backup\\  |  Move-Item C:\\old.txt C:\\new.txt  |  Remove-Item C:\\temp\\ -Recurse -Force"
+  },
+  {
+    "id": 87,
+    "category": "Powershell",
+    "term": "Select-Object",
+    "definition": "Select-Object lets you pick exactly which properties you want to see from the objects flowing through your pipeline. Think of it like SQL's SELECT statement. Instead of getting a wall of output with every property of every process, you can specify exactly the columns you care about, keeping things readable and focused on what matters.",
+    "related_command": "Get-Process | Select-Object Name, Id, CPU  |  Get-Service | Select-Object Name, Status"
+  },
+  {
+    "id": 88,
+    "category": "Powershell",
+    "term": "Where-Object",
+    "definition": "Where-Object filters the objects in your pipeline down to only those that meet a condition you define, essentially SQL's WHERE clause for PowerShell. The $_ variable represents the current object being evaluated, and you can filter on any property it has. It is one of the most versatile and frequently used cmdlets once you start doing anything non-trivial in PowerShell.",
+    "related_command": "Get-Service | Where-Object { $_.Status -eq 'Running' }  |  Get-Process | Where-Object { $_.CPU -gt 50 }"
+  },
+  {
+    "id": 89,
+    "category": "Powershell",
+    "term": "ForEach-Object",
+    "definition": "ForEach-Object iterates through every object in a pipeline and performs an action on each one, with $_ representing the current item. It is the pipeline-integrated version of a for loop, and it is what allows you to do things like process every running service, every file in a directory, or every line in a log file in sequence all as part of a single PowerShell one-liner.",
+    "related_command": "1..5 | ForEach-Object { Write-Output \"Item $_\" }  |  Get-Process | ForEach-Object { $_.Name }"
+  },
+  {
+    "id": 90,
+    "category": "Powershell",
+    "term": "Out-File / Get-Content",
+    "definition": "Out-File saves the output of a pipeline to a text file, letting you capture results for later reference or reporting. Get-Content is the reverse. It reads a file's contents into the pipeline, functioning as PowerShell's equivalent of cat in Linux. Together they form the foundation of reading and writing files in PowerShell scripts.",
+    "related_command": "Get-Process | Out-File C:\\procs.txt  |  Get-Content C:\\logs\\app.log"
+  },
+  {
+    "id": 91,
+    "category": "Powershell",
+    "term": "Start-Process / Stop-Process",
+    "definition": "Start-Process launches an application or process, similar to double-clicking a program in the GUI. Stop-Process terminates a running process by name or PID, like using Task Manager's 'End Task' but from the command line. The -Force flag is useful when a process won't respond to a normal termination signal.",
+    "related_command": "Start-Process notepad.exe  |  Stop-Process -Name chrome  |  Stop-Process -Id 1234 -Force"
+  },
+  {
+    "id": 92,
+    "category": "Powershell",
+    "term": "Get-LocalUser",
+    "definition": "Get-LocalUser lists all local user accounts on the machine, including details like whether the account is enabled or disabled and when it was last logged into. Security analysts use this regularly to audit user accounts, identify accounts that shouldn't exist, and spot potential backdoor accounts created by malware or an attacker.",
+    "related_command": "Get-LocalUser  |  Get-LocalUser -Name Administrator"
+  },
+  {
+    "id": 93,
+    "category": "Powershell",
+    "term": "Get-ADUser (Active Directory)",
+    "definition": "Get-ADUser queries user accounts from a Microsoft Active Directory domain, letting you look up details like login names, email addresses, last logon times, account status, and group memberships. It is heavily used by identity and access management teams to manage users at scale, and you will need the RSAT tools installed and a domain-joined machine with the right permissions to use it.",
+    "related_command": "Get-ADUser -Identity jsmith -Properties * |  Get-ADUser -Filter {Enabled -eq $false}"
+  },
+  {
+    "id": 94,
+    "category": "Powershell",
+    "term": "Get-NetTCPConnection",
+    "definition": "Get-NetTCPConnection shows all active and listening TCP connections on the system. It is essentially the PowerShell version of running netstat. Each entry shows the local and remote addresses, ports, connection state, and the process ID that owns the connection. Filtering for established connections is a quick way to see what your machine is actively talking to right now.",
+    "related_command": "Get-NetTCPConnection  |  Get-NetTCPConnection | Where-Object { $_.State -eq 'Established' }"
+  },
+  {
+    "id": 95,
+    "category": "Powershell",
+    "term": "Get-NetFirewallRule",
+    "definition": "Get-NetFirewallRule retrieves Windows Firewall rules, showing the name, direction (Inbound or Outbound), action (Allow or Block), and whether each rule is currently enabled. The full output can be enormous, so piping it through Select-Object to choose specific columns is a good habit. It is useful for auditing firewall configuration and verifying that security policy is actually being enforced.",
+    "related_command": "Get-NetFirewallRule | Select-Object DisplayName, Direction, Action, Enabled  |  Get-NetFirewallRule -Direction Inbound -Action Block"
+  },
+  {
+    "id": 96,
+    "category": "Powershell",
+    "term": "Get-FileHash",
+    "definition": "Get-FileHash computes a cryptographic hash of a file using an algorithm of your choice like MD5, SHA1, or SHA256. Its primary use in security is file integrity verification: if a file's hash value changes unexpectedly, it is a sign the file may have been tampered with. SHA256 is the recommended algorithm for this purpose since MD5 and SHA1 are considered cryptographically weak.",
+    "related_command": "Get-FileHash C:\\file.exe -Algorithm SHA256  |  Get-FileHash C:\\Windows\\System32\\cmd.exe"
+  },
+  {
+    "id": 97,
+    "category": "Powershell",
+    "term": "Invoke-WebRequest",
+    "definition": "Invoke-WebRequest sends HTTP and HTTPS requests from PowerShell, similar to how curl works on Linux. You can use it to download files, test API endpoints, or interact with web services entirely from the command line. It is worth being aware that attackers commonly use this cmdlet to pull down payloads from remote servers during post-exploitation, so it shows up frequently in security alerts and logs.",
+    "related_command": "Invoke-WebRequest -Uri https://example.com  |  Invoke-WebRequest -Uri https://example.com/file.zip -OutFile file.zip"
+  },
+  {
+    "id": 98,
+    "category": "Security",
+    "term": "CIA Triad",
+    "definition": "The CIA Triad is the foundational framework of information security, built on three core principles: Confidentiality (only authorized people can access data), Integrity (data stays accurate and unaltered), and Availability (systems and data are accessible when needed). Virtually every security control, policy, and decision in the field is designed to protect one or more of these three pillars. Any security incident is ultimately a violation of at least one of them.",
+    "related_command": "N/A (foundational concept)"
+  },
+  {
+    "id": 99,
+    "category": "Security",
+    "term": "Confidentiality",
+    "definition": "Confidentiality is the principle of ensuring that information is only accessible to people or systems that are authorized to see it. It is violated by things like data breaches, eavesdropping on unencrypted connections, and credential theft. The tools we use to enforce it include encryption, strong access controls, VPNs, and need-to-know access policies.",
+    "related_command": "openssl enc -aes-256-cbc -in file.txt -out file.enc"
+  },
+  {
+    "id": 100,
+    "category": "Security",
+    "term": "Integrity",
+    "definition": "Integrity means that data is trustworthy in that it hasn't been tampered with, corrupted, or altered without authorization. The practical way to verify integrity is through hashing: generate a SHA256 hash of a file, store it, and if the file's hash ever changes, you know something modified it. Violations of integrity include things like an attacker modifying a configuration file or a corrupt transfer silently altering a software package.",
+    "related_command": "sha256sum file.txt  (Linux) | Get-FileHash file.txt -Algorithm SHA256  (PowerShell)"
+  },
+  {
+    "id": 101,
+    "category": "Security",
+    "term": "Availability",
+    "definition": "Availability means that systems, services, and data are reliably accessible to authorized users when they need them. This is the pillar that DDoS attacks, ransomware, and hardware failures all attack. It is enforced through redundancy, regular backups, failover systems, disaster recovery plans, and services like DDoS scrubbing. Even the most secure system is a failure if it is constantly offline.",
+    "related_command": "ping -c 4 server_ip  (basic availability check)"
+  },
+  {
+    "id": 102,
+    "category": "Security",
+    "term": "Phishing",
+    "definition": "Phishing is a social engineering attack where an attacker sends deceptive emails, texts, or messages that impersonate a trusted entity like a bank, your boss, or Amazon to trick the recipient into clicking a malicious link, handing over credentials, or downloading malware. Despite how well-understood it is, phishing remains the single most common initial attack vector in real-world breaches, because exploiting human trust is often easier than breaking technical defenses.",
+    "related_command": "N/A"
+  },
+  {
+    "id": 103,
+    "category": "Security",
+    "term": "Spear Phishing",
+    "definition": "Spear phishing is a targeted, personalized version of phishing where the attacker researches the specific individual or organization beforehand and crafts a highly convincing message using real details like a coworker's name, an ongoing project, or the victim's job title. Because the message appears so legitimate and relevant, it is far more likely to succeed than a generic mass phishing email, and it is a common technique used in advanced, targeted attacks.",
+    "related_command": "N/A"
+  },
+  {
+    "id": 104,
+    "category": "Security",
+    "term": "Social Engineering",
+    "definition": "Social engineering is the art of manipulating people into doing something or revealing something they shouldn't, and it is often more effective than hacking the technology directly. Techniques include phishing (email deception), pretexting (fabricating a believable scenario), vishing (phone calls impersonating IT support or a bank), and baiting (leaving a malware-loaded USB drive in a parking lot). No matter how good your technical security is, people remain the most exploitable vulnerability.",
+    "related_command": "N/A"
+  },
+  {
+    "id": 105,
+    "category": "Security",
+    "term": "Malware",
+    "definition": "Malware is the catch-all term for any software intentionally designed to damage, disrupt, or gain unauthorized access to systems. It is an umbrella that covers viruses, worms, trojans, ransomware, spyware, adware, keyloggers, and rootkits, each with its own behavior and delivery method. If a piece of software exists to cause harm or operate without the user's knowledge, it falls under malware.",
+    "related_command": "clamscan -r /home  (ClamAV antivirus scan, Linux)"
+  },
+  {
+    "id": 106,
+    "category": "Security",
+    "term": "Virus",
+    "definition": "A virus is malware that attaches itself to a legitimate file or program and self-replicates whenever that infected file is executed. It needs both a host file and some form of human interaction like opening an attachment or running a program to spread. Once active, it can corrupt files, steal data, or install additional malware, depending on what the attacker designed it to do.",
+    "related_command": "N/A"
+  },
+  {
+    "id": 107,
+    "category": "Security",
+    "term": "Worm",
+    "definition": "Unlike a virus, a worm doesn't need a host file or any user interaction to spread. It exploits vulnerabilities in network services to replicate itself and move from machine to machine completely on its own. This makes worms capable of spreading incredibly fast across entire networks. WannaCry, for example, spread to hundreds of thousands of systems in a matter of hours by exploiting a Windows SMB vulnerability.",
+    "related_command": "N/A"
+  },
+  {
+    "id": 108,
+    "category": "Security",
+    "term": "Trojan Horse",
+    "definition": "Named after the classic myth, a Trojan is malware that disguises itself as legitimate, useful software to trick the user into installing it, like a game, a cracked app, or a fake security tool. Unlike viruses and worms, Trojans don't self-replicate; they rely entirely on the user installing them willingly. Once inside, they can open backdoors, exfiltrate data, or download and install additional malware.",
+    "related_command": "N/A"
+  },
+  {
+    "id": 109,
+    "category": "Security",
+    "term": "Ransomware",
+    "definition": "Ransomware is malware that encrypts the victim's files and then demands a ransom payment, typically in cryptocurrency in exchange for the decryption key. Modern ransomware attacks have evolved to also exfiltrate sensitive data before encrypting it, using the threat of public release as additional leverage (known as double extortion). High-profile attacks like WannaCry, Colonial Pipeline, and LockBit have shown just how devastating ransomware can be at scale.",
+    "related_command": "N/A"
+  },
+  {
+    "id": 110,
+    "category": "Security",
+    "term": "Spyware",
+    "definition": "Spyware silently monitors what a user does on their device by recording browsing history, capturing keystrokes, taking screenshots, and sending all of it back to the attacker without the user's knowledge. It often gets installed bundled with free software or through phishing, and it can quietly operate in the background for a long time before being detected.",
+    "related_command": "N/A"
+  },
+  {
+    "id": 111,
+    "category": "Security",
+    "term": "Rootkit",
+    "definition": "A rootkit is a particularly nasty type of malware that embeds itself deep in the operating system, often at the kernel level specifically to hide itself and other malicious activity from detection tools. It can conceal files, processes, network connections, and even registry entries, making the system appear clean even when it is thoroughly compromised. Detection is hard, and removal is even harder. Sometimes a full OS reinstall is the only reliable solution.",
+    "related_command": "chkrootkit  (Linux) | rkhunter --check  (Linux)"
+  },
+  {
+    "id": 112,
+    "category": "Security",
+    "term": "Keylogger",
+    "definition": "A keylogger records every keystroke made on a device and sends that data to the attacker to capture passwords, credit card numbers, private messages, and anything else typed. They can be software-based (installed as part of a Trojan) or hardware-based (a small physical device plugged between the keyboard and the computer). Either way, they are silent and highly effective at credential theft.",
+    "related_command": "N/A"
+  },
+  {
+    "id": 113,
+    "category": "Security",
+    "term": "IDS (Intrusion Detection System)",
+    "definition": "An IDS monitors network traffic or host activity for suspicious patterns and known attack signatures, then generates an alert when something looks wrong. The key thing to understand is that an IDS only detects and alerts. It does not block anything on its own. It can be network-based (monitoring traffic flowing through the network) or host-based (monitoring logs and activity on a specific machine). Snort is one of the most well-known open-source IDS tools.",
+    "related_command": "snort -A console -q -c /etc/snort/snort.conf -i eth0"
+  },
+  {
+    "id": 114,
+    "category": "Security",
+    "term": "IPS (Intrusion Prevention System)",
+    "definition": "An IPS is like an IDS with an upgrade. It doesn't just detect and alert on suspicious traffic, it can actively block or drop it in real time before it reaches the target. Because it sits inline in the network path and makes automatic decisions, fine-tuning it carefully is important to avoid blocking legitimate traffic (false positives). Together, IDS and IPS form a critical layer of active network defense.",
+    "related_command": "N/A (configured in network/firewall)"
+  },
+  {
+    "id": 115,
+    "category": "Security",
+    "term": "SIEM (Security Information and Event Management)",
+    "definition": "A SIEM is a platform that collects and centralizes log data from across an entire organization like firewalls, servers, endpoints, and cloud services and then correlates and analyzes that data in real time to detect threats and support incident response. Instead of manually checking logs on dozens of systems, analysts get a single pane of glass with alerts and dashboards. Popular SIEMs include Splunk, Microsoft Sentinel, IBM QRadar, and the Elastic Stack.",
+    "related_command": "N/A (platform-level tool)"
+  },
+  {
+    "id": 116,
+    "category": "Security",
+    "term": "Zero-Day Vulnerability",
+    "definition": "A zero-day is a security vulnerability in software that the vendor doesn't know about yet and therefore has no patch for. The name comes from the idea that defenders have had 'zero days' to fix it since it was discovered. Zero-days are extremely valuable on both legitimate vulnerability markets and the black market, with some going for millions of dollars because they can be exploited without any defense available.",
+    "related_command": "N/A"
+  },
+  {
+    "id": 117,
+    "category": "Security",
+    "term": "Patch Management",
+    "definition": "Patch management is the ongoing process of identifying, testing, and applying software updates to fix known vulnerabilities and bugs. It sounds routine, but it is one of the highest-impact security practices available. Many massive breaches, including WannaCry, exploited vulnerabilities that had patches available for months but were never applied. A system that is consistently patched is dramatically harder to compromise than one that isn't.",
+    "related_command": "sudo apt update && sudo apt upgrade  (Linux) | Get-WindowsUpdate  (PowerShell with PSWindowsUpdate module)"
+  },
+  {
+    "id": 118,
+    "category": "Security",
+    "term": "Principle of Least Privilege (PoLP)",
+    "definition": "The Principle of Least Privilege states that every user, process, and system should be granted only the minimum access and permissions needed to do their specific job, nothing more. This limits the damage that can be done if an account is compromised or a user makes a mistake, since they can only affect things within their narrow scope of access. It is one of the most effective and foundational principles in security architecture.",
+    "related_command": "N/A (policy/design principle)"
+  },
+  {
+    "id": 119,
+    "category": "Security",
+    "term": "Defense in Depth",
+    "definition": "Defense in depth is the strategy of layering multiple independent security controls so that if one fails, others are still in place to limit the damage. Think of a medieval castle. It doesn't just have one wall, it has a moat, outer walls, an inner keep, and guards at every level. In cybersecurity, that translates to combining firewalls, IDS/IPS, antivirus, MFA, encryption, monitoring, and physical security, so there is no single point of failure.",
+    "related_command": "N/A (strategy concept)"
+  },
+  {
+    "id": 120,
+    "category": "Security",
+    "term": "Encryption",
+    "definition": "Encryption transforms readable data (plaintext) into an unreadable scrambled format (ciphertext) using an algorithm and a key. Only someone with the correct key can decrypt it back into readable form. It is one of the most powerful tools in cybersecurity and the backbone of secure communication. Without it, everything you send over the internet could be read by anyone intercepting it.",
+    "related_command": "openssl enc -aes-256-cbc -in file.txt -out file.enc  (Linux)"
+  },
+  {
+    "id": 121,
+    "category": "Security",
+    "term": "Symmetric Encryption",
+    "definition": "Symmetric encryption uses the same key to both encrypt and decrypt data. It is fast and efficient, making it ideal for encrypting large volumes of data. The main challenge is the key distribution problem: if you want to share encrypted data with someone, you first have to figure out how to securely share the key with them. Common algorithms include AES-256, which is the current industry standard, and is used in everything from file encryption to VPNs.",
+    "related_command": "openssl enc -aes-256-cbc -in plaintext.txt -out ciphertext.enc -k secretpassword"
+  },
+  {
+    "id": 122,
+    "category": "Security",
+    "term": "Asymmetric Encryption",
+    "definition": "Asymmetric encryption uses a mathematically linked key pair, a public key that anyone can have, and a private key that you keep secret. Data encrypted with the public key can only be decrypted with the matching private key. This elegantly solves the key distribution problem because you can share your public key freely with the world. It is slower than symmetric encryption, so in practice it is often used just to securely exchange a symmetric key, which then handles the bulk encryption. RSA and ECC are the most common algorithms.",
+    "related_command": "openssl genrsa -out private.pem 2048  |  openssl rsa -in private.pem -pubout -out public.pem"
+  },
+  {
+    "id": 123,
+    "category": "Security",
+    "term": "Hashing",
+    "definition": "Hashing is a one-way process that converts any input like a file, a password, a message into a fixed-length string called a hash or digest. It is one-way, meaning you can't reverse it to get the original input back. Hashing is used to verify file integrity (if even one byte changes, the hash completely changes) and to store passwords securely so they're never saved in plaintext. SHA-256 is the recommended standard; MD5 and SHA-1 are considered broken for security purposes.",
+    "related_command": "sha256sum file.txt  (Linux) | Get-FileHash file.txt -Algorithm SHA256  (PowerShell)"
+  },
+  {
+    "id": 124,
+    "category": "Security",
+    "term": "MFA (Multi-Factor Authentication)",
+    "definition": "MFA requires users to verify their identity using at least two different types of factors: something you know (a password), something you have (a phone with an authenticator app, or a hardware key), or something you are (a fingerprint or face scan). Even if an attacker steals your password, MFA stops them cold because they still can't provide the second factor. Enabling MFA everywhere you can is one of the single most impactful security improvements any individual or organization can make.",
+    "related_command": "N/A (authentication configuration)"
+  },
+  {
+    "id": 125,
+    "category": "Security",
+    "term": "Brute Force Attack",
+    "definition": "A brute force attack is exactly what it sounds like. The attacker systematically tries every possible password combination until they find the right one. Against short or simple passwords this can succeed quickly, but the time required grows exponentially with password length and complexity. This is why longer passwords matter so much, and why lockout policies and rate limiting are important defenses on any login system.",
+    "related_command": "hydra -l admin -P wordlist.txt ssh://192.168.1.10  (Hydra tool)"
+  },
+  {
+    "id": 126,
+    "category": "Security",
+    "term": "Dictionary Attack",
+    "definition": "A dictionary attack is a smarter, faster version of brute force that uses a predefined list of common passwords, words, and phrases rather than trying every possible combination. Since most people use predictable passwords, this approach finds them much more quickly than pure brute force. The rockyou.txt wordlist, over 14 million real passwords leaked from a breach, is the classic dictionary used in CTFs and security testing.",
+    "related_command": "john --wordlist=rockyou.txt hashfile.txt  (John the Ripper)"
+  },
+  {
+    "id": 127,
+    "category": "Security",
+    "term": "Rainbow Table Attack",
+    "definition": "A rainbow table is a massive precomputed lookup table that maps hash values back to their original plaintexts. Instead of computing hashes on the fly during an attack, the attacker simply looks up a stolen hash in the table to find the original password almost instantly. The defense against this is salting, which is adding a unique random value to each password before hashing it, making all those precomputed tables completely useless.",
+    "related_command": "N/A (defend with salted hashing: bcrypt, scrypt, Argon2)"
+  },
+  {
+    "id": 128,
+    "category": "Security",
+    "term": "SQL Injection (SQLi)",
+    "definition": "SQL injection happens when an attacker inserts malicious SQL code into an input field (like a login form or search box) that gets passed directly to a database query without proper sanitization. If the application isn't handling input safely, that code gets executed by the database, potentially exposing all the data in it, allowing the attacker to log in as any user, or in some cases even running commands on the underlying server. It consistently ranks on the OWASP Top 10 list of most dangerous web vulnerabilities.",
+    "related_command": "sqlmap -u 'http://example.com/page?id=1' --dbs  (sqlmap tool)"
+  },
+  {
+    "id": 129,
+    "category": "Security",
+    "term": "Cross-Site Scripting (XSS)",
+    "definition": "XSS is a web attack where an attacker injects malicious JavaScript into a page that other users then load in their browsers, causing the script to execute in the context of the victim's session. Stored XSS saves the payload in the database so it affects everyone who views that content. Reflected XSS sends it back immediately in the server's response. The most common payloads steal session cookies, redirect users to malicious sites, or log keystrokes.",
+    "related_command": "N/A (test with: <script>alert('XSS')</script>)"
+  },
+  {
+    "id": 130,
+    "category": "Security",
+    "term": "CSRF (Cross-Site Request Forgery)",
+    "definition": "CSRF tricks an already-authenticated user into unknowingly submitting a malicious request to a web application they're logged into because browsers automatically attach session cookies to every request. For example, a victim clicks a link in an email that silently sends a request to their bank to transfer funds. The defense is CSRF tokens: a secret value tied to the user's session that must be included in every form submission so the server can verify the request was intentional.",
+    "related_command": "N/A"
+  },
+  {
+    "id": 131,
+    "category": "Security",
+    "term": "Man-in-the-Middle Attack (MITM)",
+    "definition": "In a MITM attack, the attacker secretly positions themselves between two parties who believe they're communicating directly with each other, intercepting and potentially modifying the data passing between them. Public Wi-Fi is the classic hunting ground for this, as an attacker on the same network can intercept unencrypted traffic. The primary defenses are encryption (HTTPS, TLS, VPNs), which ensures the data is unreadable even if intercepted, and certificate validation, which prevents impersonation.",
+    "related_command": "arpspoof -i eth0 -t target_ip gateway_ip  (ARP poisoning MITM)"
+  },
+  {
+    "id": 132,
+    "category": "Security",
+    "term": "Buffer Overflow",
+    "definition": "A buffer overflow vulnerability occurs when a program writes more data to a memory buffer than it was allocated to hold, causing it to spill over into adjacent memory regions. If an attacker can control what data overflows, they can overwrite critical parts of memory including the instruction pointer and redirect the program's execution to their own malicious code (shellcode). Modern systems have mitigations like ASLR, stack canaries, and DEP, but buffer overflows remain relevant and are a classic topic in exploit development.",
+    "related_command": "N/A"
+  },
+  {
+    "id": 133,
+    "category": "Security",
+    "term": "DoS (Denial of Service)",
+    "definition": "A Denial of Service attack floods a target system or network with so much traffic or so many requests that it becomes overwhelmed and unable to serve legitimate users. It is a direct attack on Availability, one of the CIA Triad pillars. Common techniques include SYN floods (exploiting the TCP handshake), HTTP floods, and ICMP floods. A DoS comes from a single attacker machine, which distinguishes it from a DDoS.",
+    "related_command": "N/A"
+  },
+  {
+    "id": 134,
+    "category": "Security",
+    "term": "DDoS (Distributed Denial of Service)",
+    "definition": "A DDoS attack is like a DoS attack but massively amplified. Instead of one machine, the attacker leverages a botnet of thousands or millions of compromised devices (called zombies) to simultaneously flood the target. The distributed nature makes it extremely difficult to block, since the traffic is coming from countless sources worldwide. Defense involves techniques like traffic scrubbing, rate limiting, and CDN-level DDoS mitigation services like Cloudflare.",
+    "related_command": "N/A"
+  },
+  {
+    "id": 135,
+    "category": "Security",
+    "term": "Port Scanning",
+    "definition": "Port scanning is the process of probing a host's ports to discover which ones are open, what services are listening on them, and what software versions are running. It is a fundamental step in both legitimate network auditing and attacker reconnaissance. You can't exploit something you don't know is there. nmap is the go-to tool for this. Important note: scanning systems you don't own or have explicit permission to scan is illegal.",
+    "related_command": "nmap -sS -p 1-1000 192.168.1.1  |  nmap -sV --open 192.168.1.0/24"
+  },
+  {
+    "id": 136,
+    "category": "Security",
+    "term": "Vulnerability Scanning",
+    "definition": "A vulnerability scanner automatically checks a system or network against a database of known vulnerabilities, misconfigurations, and CVEs, then produces a report of what it found. It is different from penetration testing in an important way. Scanners identify potential weaknesses but don't actually exploit them. Think of it as a health checkup versus surgery. Popular scanners include Nessus, OpenVAS, and Qualys.",
+    "related_command": "nmap --script vuln -sV 192.168.1.1  |  openvas  (OpenVAS scanner)"
+  },
+  {
+    "id": 137,
+    "category": "Security",
+    "term": "CVE (Common Vulnerabilities and Exposures)",
+    "definition": "A CVE is a standardized identifier assigned to publicly known security vulnerabilities, following the format CVE-YEAR-NUMBER. For example, CVE-2021-44228 is the identifier for Log4Shell, one of the most severe vulnerabilities in recent history. CVEs are maintained by MITRE and serve as a common language for security professionals to reference, discuss, and prioritize specific vulnerabilities. Each entry includes a description, severity score, and links to patches.",
+    "related_command": "N/A (search at: cve.mitre.org)"
+  },
+  {
+    "id": 138,
+    "category": "Security",
+    "term": "Penetration Testing (Pentesting)",
+    "definition": "Penetration testing is an authorized, simulated attack on a system, network, or application carried out to find and demonstrate real exploitable vulnerabilities before actual attackers do. It follows a structured methodology: Reconnaissance, Scanning, Exploitation, Post-Exploitation, and Reporting. The critical difference between a pentester and an attacker is that written authorization must always be obtained first, as without it, everything a pentester does is legally the same as hacking.",
+    "related_command": "N/A (requires written authorization)"
+  },
+  {
+    "id": 139,
+    "category": "Security",
+    "term": "CTF (Capture the Flag)",
+    "definition": "CTFs are cybersecurity competitions where participants solve security challenges to find hidden strings of text called 'flags.' They are one of the best ways to build practical skills in a legal, controlled environment, covering areas like web exploitation, cryptography, forensics, binary exploitation, reverse engineering, OSINT, and networking. Platforms like TryHackMe, HackTheBox, and PicoCTF are great starting points, and CTFtime.org lists upcoming competitions.",
+    "related_command": "N/A"
+  },
+  {
+    "id": 140,
+    "category": "Security",
+    "term": "OSINT (Open Source Intelligence)",
+    "definition": "OSINT is the practice of collecting and analyzing information about a target using only publicly available sources like social media, WHOIS records, LinkedIn, job postings, public records, Shodan, and Google are all fair game. It is a critical part of the reconnaissance phase in both ethical hacking and real attacks, and it is sometimes surprising how much sensitive information is just publicly accessible to anyone who looks carefully enough.",
+    "related_command": "theHarvester -d example.com -b google  |  whois example.com"
+  },
+  {
+    "id": 141,
+    "category": "Security",
+    "term": "Blue Team",
+    "definition": "The blue team is the defensive side of cybersecurity, the people responsible for protecting an organization's systems from attacks. Their work includes monitoring SIEM alerts, analyzing logs, responding to incidents, threat hunting, hardening systems, managing patch cycles, and implementing security controls. If red teamers are the attackers in a fire drill, blue teamers are the defenders learning from what the red team finds.",
+    "related_command": "N/A (role concept)"
+  },
+  {
+    "id": 142,
+    "category": "Security",
+    "term": "Red Team",
+    "definition": "The red team is the offensive side of security professionals who simulate real-world adversaries to test whether an organization's defenses actually hold up in practice. Unlike a standard pentest, red team operations are often longer, stealthier, and designed to mimic the full attack lifecycle of a real threat actor, including social engineering, physical intrusion, and lateral movement. Their findings directly inform the blue team's defensive improvements.",
+    "related_command": "N/A (role concept)"
+  },
+  {
+    "id": 143,
+    "category": "Security",
+    "term": "SOC (Security Operations Center)",
+    "definition": "A SOC is a centralized team and often a dedicated facility that monitors an organization's entire security posture around the clock, 24/7/365. SOC analysts work with SIEM tools, threat intelligence feeds, and incident response playbooks to detect, analyze, and respond to threats as they happen. Tier 1 analysts triage incoming alerts, Tier 2 investigators dig deeper, and Tier 3 specialists handle advanced threat hunting and complex incident response.",
+    "related_command": "N/A (organizational concept)"
+  },
+  {
+    "id": 144,
+    "category": "Security",
+    "term": "Incident Response (IR)",
+    "definition": "Incident response is the structured process an organization follows when a security incident occurs from detecting it to recovering from it. The NIST framework breaks it into six phases: Preparation, Detection & Analysis, Containment, Eradication, Recovery, and Post-Incident Review (lessons learned). Having a solid IR plan in place before an incident happens is what separates organizations that recover quickly from those that don't.",
+    "related_command": "N/A (process framework)"
+  },
+  {
+    "id": 145,
+    "category": "Security",
+    "term": "Threat Intelligence",
+    "definition": "Threat intelligence is analyzed information about existing or emerging threats, including the tactics, techniques, and procedures (TTPs) attackers use, known indicators of compromise (IoCs), and profiles of specific threat actor groups. Rather than reacting to attacks after they happen, threat intelligence lets organizations proactively prepare and harden their defenses. It is shared through feeds, ISACs (information-sharing communities), and frameworks like MITRE ATT&CK.",
+    "related_command": "N/A"
+  },
+  {
+    "id": 146,
+    "category": "Security",
+    "term": "AAA Framework (Authentication, Authorization, Accounting)",
+    "definition": "The AAA framework describes three distinct steps in controlling access to resources. Authentication is verifying who you are, typically through a username and password or MFA. Authorization determines what you're allowed to do once verified, which resources and actions your account has permission to use. Accounting (or Auditing) records what you actually did, creating an audit trail. Together, these three steps form the backbone of access control in systems like RADIUS, TACACS+, and Active Directory.",
+    "related_command": "N/A (framework concept)"
+  },
+  {
+    "id": 147,
+    "category": "Security",
+    "term": "Wireshark",
+    "definition": "Wireshark is the world's most widely used open-source network packet analyzer. It captures live network traffic and lets you inspect every packet in detail, including the protocols, headers, payloads, and conversation flows through a clean graphical interface with powerful filtering capabilities. It is used for network troubleshooting, protocol analysis, and forensics challenges in CTFs. tshark is its command-line counterpart for use on systems without a GUI.",
+    "related_command": "wireshark  (GUI) | tshark -i eth0 -w capture.pcap  (CLI)"
+  },
+  {
+    "id": 148,
+    "category": "Security",
+    "term": "Public Key Infrastructure (PKI)",
+    "definition": "PKI is the system of policies, roles, hardware, and software that governs the creation, distribution, and management of digital certificates and public/private key pairs. It is what makes HTTPS trustworthy. Certificate Authorities (CAs) like DigiCert and Let's Encrypt act as trusted third parties that vouch for the identity behind a certificate. Without PKI, there would be no reliable way to verify that the website you're connecting to is actually who it claims to be.",
+    "related_command": "openssl x509 -in certificate.crt -text -noout"
+  },
+  {
+    "id": 149,
+    "category": "Security",
+    "term": "Indicators of Compromise (IoC)",
+    "definition": "IoCs are pieces of evidence found on a system or network that suggest a security breach has occurred, such as unusual outbound connections to unknown IPs, processes that shouldn't exist, recently modified system files, registry changes, or file hashes that match known malware. During incident response, hunting for IoCs is how analysts piece together what happened and determine the scope of a compromise.",
+    "related_command": "N/A (investigation concept)"
+  },
+  {
+    "id": 150,
+    "category": "Security",
+    "term": "Layered Security (Defense in Depth)",
+    "definition": "Layered security is the practice of stacking multiple independent security controls so that no single failure point compromises the whole system. The layers might include a perimeter firewall, a host-based firewall, antivirus, application whitelisting, MFA, data encryption, monitoring and alerting, and physical access controls. The philosophy is simple: assume any one control can fail, and make sure there are others to catch what it misses.",
+    "related_command": "N/A (design philosophy)"
+  }
+]
