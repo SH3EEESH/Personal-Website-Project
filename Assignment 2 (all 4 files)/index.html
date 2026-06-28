@@ -2,45 +2,119 @@
 <html>
     <head>
         <title> BGCS Scenario Practice</title>
-        <!-- Connecting the CSS file-->
-        <link rel="stylesheet" href="styles.css">
+                <link rel='stylesheet' href='styles.css'>
     </head>
     <body>
         <header>
             <h1> > BGCS Scenario Practice Questions</h1>
-            <p> > Test your knowledge by practicing beginner-friendly commands!</p>
+            <p> > Learn, test, and practice your knowledge with beginner-friendly commands and questions! </p>
         </header>
 
     <main>
-        <!-- Implementing interactive controls for the UI-->
-        <section class = "controls">
-            <!-- Creating the search bar function-->
-             <form id="search-form">
-                <input type="text" id = "search-input" placeholder = "Search scenarios by key words" autocomplete="off">
-                <button type = "submit"> Search </button>
+        <!-- Standard container settings for the tabs-->
+        <div
+            class='tab-container' 
+            style='display: flex; 
+            justify-content: center; 
+            gap: 10px; 
+            margin-bottom: 30px;'>
+
+        <!-- Design for the tab -> 'Learn' tab-->
+            <button
+                id='tab-learn' 
+                class='active-tab' 
+                style='padding: 10px 30px; 
+                font-size: 18px; 
+                border-radius: 5px; 
+                cursor: pointer; 
+                background-color: #3ebd28d0; 
+                color: #0d0d14; 
+                border: none; 
+                font-weight: bold;'>
+                    Learn (Glossary)
+            </button>
+        <!-- Design for the tab -> 'Practice' tab-->
+            <button 
+                id='tab-practice' 
+                style='padding: 10px 30px; 
+                font-size: 18px; border-radius: 5px; 
+                cursor: pointer; 
+                background-color: #161b22; 
+                color: #3ebd28d0; 
+                border: 1px solid #3ebd28d0; 
+                font-weight: bold;'>
+                    Practice (Scenarios)
+                </button>
+        </div>
+
+        <div id='view-learn'>
+            <div 
+                style='background-color: #0d1117; 
+                border: 1px dashed #617065; 
+                padding: 20px; 
+                text-align: center; 
+                border-radius: 8px; 
+                margin-bottom: 25px;'>
+
+                <h2 style='color: #aeaeae; margin: 0;'> Cybersecurity Foundation Reference </h2>
+            </div>
+
+            <section class='controls'>
+            <form id='learn-search-form'>
+                <input type='text' id='learn-search-input' placeholder='Search glossary by key words' autocomplete='off'>
+                <button type='submit'> Search </button>
             </form>
 
-            <!-- Creating the filter dropdown menu to show specific question types-->
-            <select id = "Context-filter">
-                <option value = "All"> All Categories </option>
-                <option value = "Linux"> Linux Scenarios </option>
-                <option value = "Powershell"> Powershell Scenarios </option>
-                <option value = "Networking"> Netowrking Scenarios </option>
-                <option value = "Security"> Security Scenarios </option>
+            <select id='learn-tier-filter'>
+                <option value='All'> All Categories </option>
+                <option value='Linux'> Linux </option>
+                <option value='Powershell'> Powershell </option>
+                <option value='Networking'> Networking </option>
+                <option value='Security'> Security </option>
+            </select>
+        </section>
+            
+            <section id='glossary-grid' class='results-grid'>
+                </section>
+        </div>
+
+        <div id='view-practice' style='display: none;'>
+            <div 
+                style='background-color: #0d1117; 
+                border: 1px dashed #617065; 
+                padding: 20px; 
+                text-align: center; 
+                border-radius: 8px; 
+                margin-bottom: 25px;'>
+            
+                <h3 style='color: #aeaeae; margin-bottom: 10px;'>> Ready to practice? Open your native terminal!</h3>
+                <p style='color: #617065;'><strong>Windows:</strong> Press <kbd>Win + X</kbd> and select Windows PowerShell <br> 
+                   <strong>macOS:</strong> Press <kbd>Cmd + Space</kbd>, type 'Terminal', and hit Enter</p>
+            </div>
+
+                <section class = 'controls'>
+                         <form id='search-form'>
+                <input type='text' id = 'search-input' placeholder = 'Search scenarios by key words' autocomplete='off'>
+                <button type = 'submit'> Search </button>
+            </form>
+
+                        <select id = 'tier-filter'>
+                <option value = 'All'> All Categories </option>
+                <option value = 'Linux'> Linux Scenarios </option>
+                <option value = 'Powershell'> Powershell Scenarios </option>
+                <option value = 'Networking'> Networking Scenarios </option>
+                <option value = 'Security'> Security Scenarios </option>
             </select>
         </section>
 
-        <!-- (Just in case) loading and/or errors-->
-        <div id = "status-message"> </div>
+                <div id = 'status-message'> </div>
 
-        <!-- Result drop down accordian (like from the first assignment)-->
-         <section id = "result dropdown" class = "grid">
-            <!-- Java script will design the boxes-->
-         </section>
+                 <section id = 'results-grid' class = 'results-grid'>
+                     </section>
+
     </main>
 
-    <!-- Finally, connecting the Javascript file-->
-    <script src="app.js"></script>
+        <script src='app.js'></script>
 
     </body>
 </html>

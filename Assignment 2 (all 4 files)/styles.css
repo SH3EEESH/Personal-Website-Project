@@ -15,24 +15,25 @@ body {
 
 header {
     text-align: center;
-    background-color: rgb(0, 0, 0);
-    margin-bottom: 32px;
-    border-bottom: 2px solid #000000;
+    background-color: #100e12;
+    max-width: 850px;
+    margin: 0 auto 32px auto;
+    border: 2px solid #3ebd28d0;
     padding-bottom: 16px;
 }
 
 header h1 {
-    color: #3fb950;
-font-family: "Courier New", Courier, sans-serif;
+    color: #3ebd28d0;
+font-family: 'Courier New', Courier, sans-serif;
 }
 
 header p {
-    color: #8b949e;
+    color: #617065;
 }
 
 .controls {
     display: flex; /* getting flexbox up and going*/
-    gap: 16px; /* to seperate the boxes so they aren't squished up*/
+    gap: 25px; /* to seperate the boxes so they aren't squished up*/
     margin-bottom: 32px;
     background-color: #161b22;
     padding: 20px;
@@ -50,7 +51,7 @@ header p {
 input, select, button {
     padding: 8px;
     font-size: 16px; 
-    border: 1.5px solid #60fe789d;
+    border: 1.5px solid #3ebd28d0;
     background-color: #0d1117;
     color: #aeaeae;
     outline: none;
@@ -82,4 +83,25 @@ select {
     min-width: 200px; 
 }
 
+.results-grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Splits into 2 columns */
+    gap: 20px; /* Creates spacing between the columns and rows (future me, I dont know why I needed to rewrite another note lol*/
+}
+
+.scenario-box {
+    background-color: #100e12; 
+    border: 1px solid #3ebd28d0;
+    padding: 30px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    color: #617065;
+}
+
+.scenario-box h3 {
+    color: #3ebd28d0;
+    margin-top: 0;
+}
 
