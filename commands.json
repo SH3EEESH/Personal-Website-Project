@@ -49,7 +49,7 @@
   },
   {
     "id": 7,
-    "tier": "PowerShell",
+    "tier": "Powershell",
     "title": "> List Running Processes",
     "description": "A malicious payload might be executing. Display a list of all currently running processes on the Windows machine.",
     "expected_command": "Get-Process",
@@ -57,7 +57,7 @@
   },
   {
     "id": 8,
-    "tier": "PowerShell",
+    "tier": "Powershell",
     "title": "> Check Stopped Services",
     "description": "Ransomware often disables antivirus services. Retrieve the status of all services on the machine.",
     "expected_command": "Get-Service",
@@ -65,7 +65,7 @@
   },
   {
     "id": 9,
-    "tier": "PowerShell",
+    "tier": "Powershell",
     "title": "> Read Event Logs",
     "description": "Pull the latest 5 System event logs to investigate a recent workstation crash.",
     "expected_command": "Get-EventLog -LogName System -Newest 5",
@@ -73,7 +73,7 @@
   },
   {
     "id": 10,
-    "tier": "PowerShell",
+    "tier": "Powershell",
     "title": "> Local Users Check",
     "description": "List all local users on the Windows machine to ensure no unauthorized administrative accounts were created.",
     "expected_command": "Get-LocalUser",
@@ -81,7 +81,7 @@
   },
   {
     "id": 11,
-    "tier": "PowerShell",
+    "tier": "Powershell",
     "title": "> Network Connections",
     "description": "Identify active TCP network connections directly via PowerShell to spot data exfiltration.",
     "expected_command": "Get-NetTCPConnection",
@@ -89,7 +89,7 @@
   },
   {
     "id": 12,
-    "tier": "PowerShell",
+    "tier": "Powershell",
     "title": "> Check Execution Policy",
     "description": "A new security script won't run. Check the current execution policy to see if scripts are restricted on this machine.",
     "expected_command": "Get-ExecutionPolicy",
